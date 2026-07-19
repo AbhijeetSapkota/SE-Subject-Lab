@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="dashboard-header">
+    <h2>Welcome, {{ consumer.personal_info }}</h2>
+    <p>Find nearby items and get the best deals.</p>
+</div>
+
+<div class="search-section glassmorphism">
+    <form method="GET" action="{{ url_for('consumer_dashboard') }}" class="search-form">
+        <input type="text" name="q" placeholder="Search for Sugar, Clothes, etc..." value="{{ query }}" required>
+        <button type="submit" class="btn btn-primary">Search Nearby</button>
+    </form>
+</div>
+
+{% if query %}
+<div class="results-section">
+    <h3>Search Results for "{{ query }}"</h3>
+    
+    {% if results %}
+        <div class="results-grid">
+            {% for result in results %}
+            <div class="result-card glassmorphism">
+                <div class="result-header">
+                    <h4>{{ result.item.name }}</h4>
+                    <span class="price">${{ "%.2f"|format(result.item.price) }}</span>
+                </div>
+                <p class="brand">{{ result.item.brand }}</p>
+                <div class="retailer-info">
+                    <strong>Shop:</strong> {{ result.retailer.shop_name }}<br>
+                    <small>📍 {{ result.retailer.shop_location }}</small>
+                </div>
+                <button class="btn btn-outline btn-sm">Request Tab</button>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-results">No items found matching your query nearby.</p>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}

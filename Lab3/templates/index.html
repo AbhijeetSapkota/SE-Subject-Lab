@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="hero">
+    <h1>Find the Best Prices, Right in Your Neighborhood.</h1>
+    <p>Empowering local retailers with smart inventory management and consumers with transparent pricing.</p>
+    <div class="hero-buttons">
+        <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">Get Started</a>
+        <a href="{{ url_for('login') }}" class="btn btn-outline btn-lg">Login</a>
+    </div>
+</div>
+
+<div class="features-grid">
+    <div class="feature-card glassmorphism">
+        <div class="icon">🛒</div>
+        <h3>For Consumers</h3>
+        <p>Discover nearby shops, compare prices, and keep track of your tabs easily.</p>
+    </div>
+    <div class="feature-card glassmorphism">
+        <div class="icon">🏪</div>
+        <h3>For Retailers</h3>
+        <p>Manage your inventory, connect with loyal customers, and offer digital tabs.</p>
+    </div>
+    <div class="feature-card glassmorphism">
+        <div class="icon">💳</div>
+        <h3>Digital Tabs</h3>
+        <p>A secure way to manage credits and debits without the hassle of paper ledgers.</p>
+    </div>
+</div>
+{% endblock %}

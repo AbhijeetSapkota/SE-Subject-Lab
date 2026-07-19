@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card glassmorphism">
+        <h2>{{ action }}</h2>
+        <form method="POST" action="{{ url_for('login' if action == 'Login' else 'register') }}">
+            {% if action == 'Register' %}
+            <div class="form-group">
+                <label>I am a:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="user_type" value="consumer" checked onchange="toggleRetailerFields()"> Consumer</label>
+                    <label><input type="radio" name="user_type" value="retailer" onchange="toggleRetailerFields()"> Retailer</label>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            {% if action == 'Register' %}
+            <div class="form-group">
+                <label for="personal_info">Full Name</label>
+                <input type="text" id="personal_info" name="personal_info" required>
+            </div>
+            <div class="form-group">
+                <label for="contact_info">Contact Info</label>
+                <input type="text" id="contact_info" name="contact_info" required>
+            </div>
+
+            <div id="consumer_fields">
+                <div class="form-group">
+                    <label for="gps_location">Location</label>
+                    <input type="text" id="gps_location" name="gps_location">
+                </div>
+            </div>
+
+            <div id="retailer_fields" style="display:none;">
+                <div class="form-group">
+                    <label for="shop_name">Shop Name</label>
+                    <input type="text" id="shop_name" name="shop_name">
+                </div>
+                <div class="form-group">
+                    <label for="shop_location">Shop Location</label>
+                    <input type="text" id="shop_location" name="shop_location">
+                </div>
+            </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary btn-full">{{ action }}</button>
+        </form>
+        
+        <p class="auth-link">
+            {% if action == 'Login' %}
+                Don't have an account? <a href="{{ url_for('register') }}">Register</a>
+            {% else %}
+                Already have an account? <a href="{{ url_for('login') }}">Login</a>
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<script>
+function toggleRetailerFields() {
+    const isRetailer = document.querySelector('input[name="user_type"]:checked').value === 'retailer';
+    document.getElementById('retailer_fields').style.display = isRetailer ? 'block' : 'none';
+    document.getElementById('consumer_fields').style.display = isRetailer ? 'none' : 'block';
+}
+</script>
+{% endblock %}
